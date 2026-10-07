@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detail Surat</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light" data-wajib-login>
+  <div id="isi-halaman" class="container py-4 d-none" style="max-width: 760px;">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h4 mb-0">Detail Surat</h1>
+      <div>
+        <a href="dashboard.html" class="btn btn-outline-secondary btn-sm">Kembali</a>
+        <button id="tombol-keluar" class="btn btn-outline-secondary btn-sm">Keluar</button>
+      </div>
+    </div>
+
+    <div id="kotak-error" class="alert alert-danger d-none">Surat tidak ditemukan.</div>
+    <div id="hasil" class="d-none"></div>
+
+    <div id="kotak-surat" class="d-none">
+      <div id="kotak-alasan" class="alert d-none"></div>
+
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <dl class="row mb-0">
+            <dt class="col-sm-4">Nomor surat</dt><dd class="col-sm-8" id="d-nomor"></dd>
+            <dt class="col-sm-4">Tanggal</dt><dd class="col-sm-8" id="d-tanggal"></dd>
+            <dt class="col-sm-4">Supervisor</dt><dd class="col-sm-8" id="d-supervisor"></dd>
+            <dt class="col-sm-4">Departemen</dt><dd class="col-sm-8" id="d-departemen"></dd>
+            <dt class="col-sm-4">Nama pekerja</dt><dd class="col-sm-8" id="d-pekerja"></dd>
+            <dt class="col-sm-4">Pekerjaan / kegiatan</dt><dd class="col-sm-8" id="d-pekerjaan"></dd>
+            <dt class="col-sm-4">Periode kerja</dt><dd class="col-sm-8" id="d-periode"></dd>
+            <dt class="col-sm-4">Kesalahan pekerja</dt>
+            <dd class="col-sm-8" id="d-kesalahan" style="white-space: pre-wrap;"></dd>
+            <dt class="col-sm-4">Isi komitmen</dt>
+            <dd class="col-sm-8" id="d-komitmen" style="white-space: pre-wrap;"></dd>
+            <dt class="col-sm-4">Keterangan</dt>
+            <dd class="col-sm-8" id="d-keterangan" style="white-space: pre-wrap;"></dd>
+            <dt class="col-sm-4">Status</dt><dd class="col-sm-8" id="d-status"></dd>
+          </dl>
+        </div>
+        <div id="kotak-edit-tombol" class="card-footer bg-white d-none">
+          <button id="btn-edit" class="btn btn-warning">Edit Surat</button>
+        </div>
+      </div>
+
+      <form id="form-edit" class="card shadow-sm p-4 mb-3 d-none">
+        <h2 class="h6">Perbaiki surat</h2>
+        <p class="form-text">Nomor dan tanggal surat tidak dapat diubah.</p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="e-nama_supervisor" class="form-label">Nama supervisor</label>
+            <input type="text" id="e-nama_supervisor" class="form-control" maxlength="100" required>
+          </div>
+          <div class="col-md-6">
+            <label for="e-departemen" class="form-label">Departemen</label>
+            <input type="text" id="e-departemen" class="form-control" maxlength="100" required>
+          </div>
+          <div class="col-md-6">
+            <label for="e-nama_pekerja" class="form-label">Nama pekerja</label>
+            <input type="text" id="e-nama_pekerja" class="form-control" maxlength="100" required>
+          </div>
+          <div class="col-md-6">
+            <label for="e-nama_pekerjaan" class="form-label">Nama pekerjaan / kegiatan</label>
+            <input type="text" id="e-nama_pekerjaan" class="form-control" maxlength="200" required>
+          </div>
+          <div class="col-12">
+            <label for="e-periode_kerja" class="form-label">Periode kerja</label>
+            <input type="text" id="e-periode_kerja" class="form-control" maxlength="100" required>
+          </div>
+          <div class="col-12">
+            <label for="e-kesalahan_pekerja" class="form-label">Kesalahan pekerja</label>
+            <textarea id="e-kesalahan_pekerja" class="form-control" rows="3" maxlength="2000" required></textarea>
+          </div>
+          <div class="col-12">
+            <label for="e-isi_komitmen" class="form-label">Isi komitmen</label>
+            <textarea id="e-isi_komitmen" class="form-control" rows="4" maxlength="2000" required></textarea>
+          </div>
+          <div class="col-12">
+            <label for="e-keterangan" class="form-label">Keterangan tambahan <span class="text-muted">(boleh kosong)</span></label>
+            <textarea id="e-keterangan" class="form-control" rows="2" maxlength="1000"></textarea>
+          </div>
+        </div>
+        <div id="pesan" class="mt-3"></div>
+        <div class="mt-3">
+          <button type="submit" id="btn-kirim-ulang" class="btn btn-primary me-2">Kirim Ulang</button>
+          <button type="button" id="btn-batal-edit" class="btn btn-outline-secondary">Batal</button>
+        </div>
+      </form>
+
+      <div class="card shadow-sm">
+        <div class="card-header bg-white fw-semibold">Riwayat keputusan</div>
+        <ul id="daftar-riwayat" class="list-group list-group-flush"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/status.js"></script>
+  <script src="js/surat.js"></script>
+  <script src="js/detail.js"></script>
+</body>
+</html>

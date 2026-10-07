@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Periksa Surat Komitmen</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <main class="container py-4" style="max-width: 760px;">
+    <h1 class="h4 mb-3">Periksa Surat Komitmen Kerja</h1>
+
+    <div id="kotak-muat" class="text-muted">Memuat surat...</div>
+
+    <div id="kotak-error" class="alert alert-danger d-none">
+      Link tidak valid atau surat tidak ditemukan.
+    </div>
+
+    <div id="kotak-surat" class="card shadow-sm d-none">
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-sm-4">Nomor surat</dt><dd class="col-sm-8" id="f-nomor"></dd>
+          <dt class="col-sm-4">Tanggal</dt><dd class="col-sm-8" id="f-tanggal"></dd>
+          <dt class="col-sm-4">Supervisor</dt><dd class="col-sm-8" id="f-supervisor"></dd>
+          <dt class="col-sm-4">Departemen</dt><dd class="col-sm-8" id="f-departemen"></dd>
+          <dt class="col-sm-4">Nama pekerja</dt><dd class="col-sm-8" id="f-pekerja"></dd>
+          <dt class="col-sm-4">Pekerjaan / kegiatan</dt><dd class="col-sm-8" id="f-pekerjaan"></dd>
+          <dt class="col-sm-4">Periode kerja</dt><dd class="col-sm-8" id="f-periode"></dd>
+          <dt class="col-sm-4">Kesalahan pekerja</dt>
+          <dd class="col-sm-8" id="f-kesalahan" style="white-space: pre-wrap;"></dd>
+          <dt class="col-sm-4">Isi komitmen</dt>
+          <dd class="col-sm-8" id="f-komitmen" style="white-space: pre-wrap;"></dd>
+          <dt class="col-sm-4">Keterangan</dt>
+          <dd class="col-sm-8" id="f-keterangan" style="white-space: pre-wrap;"></dd>
+          <dt class="col-sm-4">Status</dt><dd class="col-sm-8" id="f-status"></dd>
+        </dl>
+        <div id="hasil" class="alert d-none mt-3 mb-0"></div>
+      </div>
+            <div id="kotak-aksi" class="card-footer bg-white d-none">
+        <div id="tombol-aksi">
+          <button id="btn-setuju" class="btn btn-success me-2">Setuju</button>
+          <button id="btn-revisi" class="btn btn-warning me-2">Minta Revisi</button>
+          <button id="btn-tolak" class="btn btn-danger">Tolak</button>
+        </div>
+
+        <form id="form-setuju" class="d-none">
+          <h2 class="h6">Setujui dan tanda tangani surat</h2>
+          <label for="nama-ttd" class="form-label">Nama Anda</label>
+          <input type="text" id="nama-ttd" class="form-control mb-3" maxlength="100" required>
+
+          <label class="form-label">Tanda tangan</label>
+          <canvas id="kanvas-ttd" width="600" height="200"
+                  style="width:100%; max-width:600px; height:auto; background:#fff;
+                         border:1px dashed #6c757d; border-radius:6px;
+                         touch-action:none; cursor:crosshair; display:block;"></canvas>
+          <div class="form-text mb-2">Gambar tanda tangan di dalam kotak, memakai mouse atau jari.</div>
+
+          <div id="pesan-setuju"></div>
+          <button type="button" id="btn-hapus-ttd" class="btn btn-outline-secondary me-2">Hapus</button>
+          <button type="submit" id="btn-simpan-ttd" class="btn btn-success me-2">Simpan Tanda Tangan</button>
+          <button type="button" id="btn-batal-setuju" class="btn btn-outline-secondary">Batal</button>
+        </form>
+
+        <form id="form-keputusan" class="d-none">
+          <h2 id="judul-form" class="h6"></h2>
+          <label for="nama-kp" class="form-label">Nama Anda</label>
+          <input type="text" id="nama-kp" class="form-control mb-2" maxlength="100" required>
+          <label for="alasan-kp" id="label-alasan" class="form-label"></label>
+          <textarea id="alasan-kp" class="form-control mb-2" rows="3" maxlength="1000" required></textarea>
+          <div id="pesan-form"></div>
+          <button type="submit" id="btn-kirim" class="btn btn-primary me-2">Kirim</button>
+          <button type="button" id="btn-batal" class="btn btn-outline-secondary">Batal</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/status.js"></script>
+  <script src="js/signature.js"></script>
+  <script src="js/kepala-produksi.js"></script>
+</body>
+</html>
