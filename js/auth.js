@@ -49,6 +49,7 @@ if (document.body.hasAttribute("data-wajib-login")) {
       return;
     }
     document.getElementById("isi-halaman").classList.remove("d-none");
+    document.body.classList.add("sesi-siap");
   });
 
   document.getElementById("tombol-keluar").addEventListener("click", async () => {

@@ -153,9 +153,12 @@ document.getElementById("form-ttd").addEventListener("submit", async (e) => {
     tampilPesanTtd("Silakan gambar tanda tangan Anda terlebih dahulu.");
     return;
   }
-  if (!confirm("Dengan menyimpan, Anda menandatangani surat ini dan tidak dapat mengubahnya. Lanjutkan?")) {
-    return;
-  }
+  const lanjut = await konfirmasi({
+    judul: "Tandatangani surat?",
+    pesan: "Dengan menyimpan, Anda menandatangani surat ini dan tidak dapat mengubahnya.",
+    tombol: "Ya, tandatangani",
+  });
+  if (!lanjut) return;
 
   const tombol = document.getElementById("btn-simpan-ttd");
   tombol.disabled = true;

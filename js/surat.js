@@ -84,7 +84,9 @@ if (formSurat) {
       return;
     }
 
-    tampilkanHasil("success", "Surat berhasil dibuat dengan nomor " + data.nomor_surat);
+    document.getElementById("pesan").className = "";
+    document.getElementById("pesan").textContent = "";
+    toast("Surat berhasil dibuat. Nomor: " + data.nomor_surat);
     formSurat.reset();
     tombol.disabled = false;
     tombol.textContent = "Simpan & Kirim";

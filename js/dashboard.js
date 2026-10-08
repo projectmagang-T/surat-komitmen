@@ -227,7 +227,8 @@ async function muatDashboard() {
 
   semuaSurat = data;
   hitungKartu();
-  setStatus("");
+  const awal = new URLSearchParams(window.location.search).get("status") || "";
+  setStatus(Object.keys(STATUS).includes(awal) ? awal : "");
   gambarGrafik();
 }
 

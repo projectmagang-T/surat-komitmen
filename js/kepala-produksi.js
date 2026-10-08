@@ -100,9 +100,14 @@ document.getElementById("form-keputusan").addEventListener("submit", async (e) =
     tampilPesanForm("Nama dan alasan wajib diisi.");
     return;
   }
-  if (aksiDipilih === "TOLAK" &&
-      !confirm("Surat yang ditolak tidak dapat diproses lagi. Lanjutkan?")) {
-    return;
+  if (aksiDipilih === "TOLAK") {
+    const lanjut = await konfirmasi({
+      judul: "Tolak surat ini?",
+      pesan: "Surat yang ditolak tidak dapat diproses lagi.",
+      tombol: "Ya, tolak",
+      bahaya: true,
+    });
+    if (!lanjut) return;
   }
 
   const tombol = document.getElementById("btn-kirim");
@@ -169,9 +174,12 @@ document.getElementById("form-setuju").addEventListener("submit", async (e) => {
     tampilPesanSetuju("Silakan gambar tanda tangan Anda terlebih dahulu.");
     return;
   }
-  if (!confirm("Dengan menyimpan, Anda menyetujui surat ini dan tidak dapat mengubahnya. Lanjutkan?")) {
-    return;
-  }
+  const lanjut = await konfirmasi({
+    judul: "Setujui dan tandatangani?",
+    pesan: "Dengan menyimpan, Anda menyetujui surat ini dan tidak dapat mengubahnya.",
+    tombol: "Ya, setujui",
+  });
+  if (!lanjut) return;
 
   const tombol = document.getElementById("btn-simpan-ttd");
   tombol.disabled = true;
