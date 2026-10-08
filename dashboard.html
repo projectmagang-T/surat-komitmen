@@ -8,49 +8,96 @@
 </head>
 <body class="bg-light" data-wajib-login>
   <div id="isi-halaman" class="container py-4 d-none">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
       <h1 class="h4 mb-0">Dashboard Supervisor</h1>
       <div>
         <a href="buat-surat.html" class="btn btn-primary btn-sm me-2">+ Buat Surat Baru</a>
+        <a href="riwayat.html" class="btn btn-outline-primary btn-sm me-2">Riwayat Surat</a>
         <button id="tombol-keluar" class="btn btn-outline-secondary btn-sm">Keluar</button>
       </div>
     </div>
 
     <div class="row g-3 mb-4">
       <div class="col-6 col-md-4 col-lg-2">
-        <div class="card shadow-sm text-center p-3">
-          <div class="h3 mb-0" id="angka-total">-</div><small class="text-muted">Total Surat</small>
-        </div>
+        <button type="button" class="card kartu-status shadow-sm text-center p-3 w-100 bg-white" data-status="">
+          <div class="h3 mb-0 w-100" id="angka-total">-</div><small class="text-muted w-100">Total Surat</small>
+        </button>
       </div>
       <div class="col-6 col-md-4 col-lg-2">
-        <div class="card shadow-sm text-center p-3">
-          <div class="h3 mb-0" id="angka-menunggu">-</div><small class="text-muted">Menunggu Persetujuan</small>
-        </div>
+        <button type="button" class="card kartu-status shadow-sm text-center p-3 w-100 bg-white" data-status="MENUNGGU_KEPALA_PRODUKSI">
+          <div class="h3 mb-0 w-100" id="angka-menunggu">-</div><small class="text-muted w-100">Menunggu Persetujuan</small>
+        </button>
       </div>
       <div class="col-6 col-md-4 col-lg-2">
-        <div class="card shadow-sm text-center p-3">
-          <div class="h3 mb-0" id="angka-revisi">-</div><small class="text-muted">Perlu Revisi</small>
-        </div>
+        <button type="button" class="card kartu-status shadow-sm text-center p-3 w-100 bg-white" data-status="PERLU_REVISI">
+          <div class="h3 mb-0 w-100" id="angka-revisi">-</div><small class="text-muted w-100">Perlu Revisi</small>
+        </button>
       </div>
       <div class="col-6 col-md-4 col-lg-2">
-        <div class="card shadow-sm text-center p-3">
-          <div class="h3 mb-0" id="angka-ditolak">-</div><small class="text-muted">Ditolak</small>
-        </div>
+        <button type="button" class="card kartu-status shadow-sm text-center p-3 w-100 bg-white" data-status="DITOLAK">
+          <div class="h3 mb-0 w-100" id="angka-ditolak">-</div><small class="text-muted w-100">Ditolak</small>
+        </button>
       </div>
       <div class="col-6 col-md-4 col-lg-2">
-        <div class="card shadow-sm text-center p-3">
-          <div class="h3 mb-0" id="angka-hrd">-</div><small class="text-muted">Menunggu HRD</small>
-        </div>
+        <button type="button" class="card kartu-status shadow-sm text-center p-3 w-100 bg-white" data-status="MENUNGGU_HRD">
+          <div class="h3 mb-0 w-100" id="angka-hrd">-</div><small class="text-muted w-100">Menunggu HRD</small>
+        </button>
       </div>
       <div class="col-6 col-md-4 col-lg-2">
-        <div class="card shadow-sm text-center p-3">
-          <div class="h3 mb-0" id="angka-selesai">-</div><small class="text-muted">Surat Selesai</small>
+        <button type="button" class="card kartu-status shadow-sm text-center p-3 w-100 bg-white" data-status="SELESAI">
+          <div class="h3 mb-0 w-100" id="angka-selesai">-</div><small class="text-muted w-100">Surat Selesai</small>
+        </button>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-white d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <span class="fw-semibold">Statistik Surat</span>
+        <select id="filter-periode" class="form-select form-select-sm w-auto" aria-label="Periode statistik">
+          <option value="30">30 hari terakhir</option>
+          <option value="90" selected>3 bulan terakhir</option>
+          <option value="365">12 bulan terakhir</option>
+          <option value="all">Semua</option>
+        </select>
+      </div>
+      <div class="card-body">
+        <div id="kosong-grafik" class="text-center text-muted d-none">Belum ada data pada periode ini.</div>
+        <div id="area-grafik" class="row g-4">
+          <div class="col-lg-5">
+            <div style="position: relative; height: 260px;">
+              <canvas id="grafik-status" role="img" aria-label="Grafik jumlah surat per status"></canvas>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div style="position: relative; height: 260px;">
+              <canvas id="grafik-bulan" role="img" aria-label="Grafik jumlah surat per bulan"></canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="card shadow-sm">
-      <div class="card-header bg-white fw-semibold">Daftar Surat</div>
+      <div class="card-header bg-white">
+        <div class="row g-2 align-items-center">
+          <div class="col-12 col-md">
+            <span class="fw-semibold">Daftar Surat</span>
+            <small class="text-muted" id="info-jumlah"></small>
+          </div>
+          <div class="col-12 col-md-4">
+            <input type="search" id="cari" class="form-control form-control-sm" maxlength="100"
+                   placeholder="Cari nomor, pekerja, pekerjaan..." aria-label="Cari surat">
+          </div>
+          <div class="col-6 col-md-3">
+            <select id="filter-status" class="form-select form-select-sm" aria-label="Filter status">
+              <option value="">Semua status</option>
+            </select>
+          </div>
+          <div class="col-6 col-md-auto">
+            <button type="button" id="btn-reset" class="btn btn-outline-secondary btn-sm w-100">Reset</button>
+          </div>
+        </div>
+      </div>
       <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
           <thead>
@@ -67,6 +114,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
   <script src="js/auth.js"></script>

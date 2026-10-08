@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Riwayat Surat</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light" data-wajib-login>
+  <div id="isi-halaman" class="container py-4 d-none">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h4 mb-0">Riwayat Surat</h1>
+      <div>
+        <a href="dashboard.html" class="btn btn-outline-secondary btn-sm">Kembali</a>
+        <button id="tombol-keluar" class="btn btn-outline-secondary btn-sm">Keluar</button>
+      </div>
+    </div>
+
+    <div id="pesan" class="mb-3"></div>
+
+    <div class="card shadow-sm">
+      <div class="card-header bg-white">
+  <div class="row g-2 align-items-center">
+    <div class="col-12 col-md">
+      <span class="fw-semibold">Surat yang sudah selesai</span>
+      <small class="text-muted" id="info-jumlah"></small>
+    </div>
+    <div class="col-12 col-md-4">
+      <input type="search" id="cari" class="form-control form-control-sm" maxlength="100"
+             placeholder="Cari nomor, pekerja, penandatangan..." aria-label="Cari surat">
+    </div>
+    <div class="col-6 col-md-3">
+      <select id="filter-bulan" class="form-select form-select-sm" aria-label="Filter bulan selesai">
+        <option value="">Semua bulan</option>
+      </select>
+    </div>
+    <div class="col-6 col-md-auto">
+      <button type="button" id="btn-reset" class="btn btn-outline-secondary btn-sm w-100">Reset</button>
+    </div>
+  </div>
+</div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Nomor Surat</th><th>Supervisor</th><th>Tanggal</th><th>Status</th>
+              <th>Kepala Produksi</th><th>HRD</th><th>Tanggal Selesai</th><th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="badan-tabel">
+            <tr><td colspan="8" class="text-center text-muted">Memuat...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/status.js"></script>
+  <script src="js/riwayat.js"></script>
+</body>
+</html>

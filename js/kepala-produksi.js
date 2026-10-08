@@ -43,6 +43,9 @@ async function muatSurat() {
   document
     .getElementById("kotak-aksi")
     .classList.toggle("d-none", s.status !== "MENUNGGU_KEPALA_PRODUKSI");
+    if (s.status === "DISETUJUI_KEPALA_PRODUKSI") {
+      selesaikanPdf();
+  }
 
   tampilkan("kotak-surat");
 }
@@ -194,4 +197,28 @@ document.getElementById("form-setuju").addEventListener("submit", async (e) => {
 
   document.getElementById("f-status").replaceChildren(buatBadge(data.status));
   document.getElementById("kotak-aksi").classList.add("d-none");
+  await selesaikanPdf();
 });
+
+async function selesaikanPdf() {
+  const hasil = document.getElementById("hasil");
+  hasil.className = "alert alert-info mt-3 mb-0";
+  hasil.textContent = "Membuat dokumen PDF, mohon tunggu...";
+
+  const { data, error } = await db.functions.invoke("buat-pdf", {
+    body: { token },
+  });
+
+  if (error || !data || !data.status) {
+    hasil.className = "alert alert-warning mt-3 mb-0";
+    hasil.textContent =
+      "Tanda tangan sudah tersimpan, tetapi dokumen PDF belum selesai dibuat. " +
+      "Muat ulang halaman ini untuk mencoba lagi.";
+    return;
+  }
+
+  document.getElementById("f-status").replaceChildren(buatBadge(data.status));
+  hasil.className = "alert alert-success mt-3 mb-0";
+  hasil.textContent =
+    "Surat disetujui dan ditandatangani. Dokumen PDF sudah dibuat dan surat diteruskan ke HRD.";
+}
