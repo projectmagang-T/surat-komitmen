@@ -1,0 +1,48 @@
+[build]
+  publish = "public"
+
+# Header keamanan untuk semua halaman
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "no-referrer"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://soekckmghgqrotkjttmf.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+
+# Halaman yang memuat data: jangan disimpan di cache browser
+[[headers]]
+  for = "/dashboard.html"
+  [headers.values]
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/buat-surat.html"
+  [headers.values]
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/detail-surat.html"
+  [headers.values]
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/riwayat.html"
+  [headers.values]
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/profil.html"
+  [headers.values]
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/kepala-produksi.html"
+  [headers.values]
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/hrd.html"
+  [headers.values]
+    Cache-Control = "no-store"
