@@ -583,3 +583,52 @@ body[data-wajib-login]:not(.sesi-siap) .layout {
   color: #fff;
   padding: 0.85rem 0;
 }
+
+
+body {
+  background: linear-gradient(135deg, #f1f5fb, #e4ecf7);
+  font-family: Arial, sans-serif;
+}
+
+.login-card {
+  max-width: 400px;
+  border-radius: 16px;
+}
+
+.login-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eaf1ff;
+  color: #245aab;
+  border-radius: 16px;
+}
+
+h1 {
+  color: #1c3557;
+}
+
+.form-control {
+  padding: 12px 14px;
+  border-radius: 8px;
+}
+
+.form-control:focus {
+  border-color: #245aab;
+  box-shadow: 0 0 0 3px rgba(36, 90, 171, 0.12);
+}
+
+.btn-primary {
+  background-color: #245aab;
+  border-color: #245aab;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: #1b478a;
+  border-color: #1b478a;
+}
